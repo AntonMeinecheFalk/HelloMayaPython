@@ -1,5 +1,25 @@
 from PySide2 import QtWidgets
 
+class MySelectButton(QtWidgets.QPushButton):
+
+    _name: str 
+    _posX: int
+    _posY: int
+
+
+    def __init__(self, name: str, x: int, y: int, parent: QtWidgets.QWidget):
+        super().__init__(f'select {name}', parent)
+
+        self._name = name
+        self._posX = x
+        self._posY = y
+
+        self.setGeometry(self._posX, self._posY, 200, 40)
+        self.clicked.connect(self.onButtonClicked)
+
+    def onButtonClicked(self):
+        print(f'Select {self._name}')
+
 class MyQtUI(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -7,35 +27,17 @@ class MyQtUI(QtWidgets.QWidget):
         self.setWindowTitle("My Qt UI")
         self.setGeometry(300, 50, 766, 980)
 
-        lWristSelectButton = QtWidgets.QPushButton("Select L_Wrist", self)
-        lWristSelectButton.setGeometry(300, 150, 766, 100)
-        lWristSelectButton.clicked.connect(self.onLWristSelectButtonClicked)
+        MySelectButton("L_Wrist", 10, 10, self)
 
-        rWristSelectButton = QtWidgets.QPushButton("Select R_Wrist", self)
-        rWristSelectButton.setGeometry(300, 250, 766, 100)
-        rWristSelectButton.clicked.connect(self.onRWristSelectButtonClicked)
+        MySelectButton("R_Wrist", 220, 10, self)
       
-        lShoulderSelectButton = QtWidgets.QPushButton("Select L_Shoulder", self)
-        lShoulderSelectButton.setGeometry(300, 350, 766, 100)
-        lShoulderSelectButton.clicked.connect(self.onLShoulderSelectButtonClicked)
+        MySelectButton("L_Shoulder", 430, 10, self)
 
-        rShoulderSelectButton = QtWidgets.QPushButton("Select R_Shoulder", self)
-        rShoulderSelectButton.setGeometry(300, 450, 766, 100)
-        rShoulderSelectButton.clicked.connect(self.onRShoulderSelectButtonClicked)
+        MySelectButton("R_Shoulder", 640, 10, self)
+      
 
         self.show()
 
-    def onLWristSelectButtonClicked(self):
-        print("TODO: Select L_Wrist")
-
-    def onRWristSelectButtonClicked(self):
-        print("TODO: Select R_Wrist")
-
-    def onLShoulderSelectButtonClicked(self):
-        print("TODO: Select L_Shoulder")
-
-    def onRShoulderSelectButtonClicked(self):
-        print("TODO: Select R_Shoulder")
 
 app = QtWidgets.QApplication()
 myQtUI = MyQtUI()
